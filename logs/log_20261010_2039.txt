@@ -1,0 +1,10 @@
+2026-10-10 20:39:08 | INFO     | etl_airbnb                 | ======================================================================
+2026-10-10 20:39:08 | INFO     | etl_airbnb                 | Nueva ejecución del ETL. Archivo de log: log_20261010_2039.txt
+2026-10-10 20:39:08 | INFO     | etl_airbnb.cargar_mongo    | Conectando a MongoDB en mongodb://localhost:27017 (base de datos: airbnb_bogota)
+2026-10-10 20:39:08 | INFO     | etl_airbnb.cargar_mongo    | Importando listings.csv.gz -> colección Listings
+2026-10-10 20:39:08 | WARNING  | etl_airbnb.cargar_mongo    | La colección Listings ya tiene datos; se omite (use --reemplazar).
+2026-10-10 20:39:09 | INFO     | etl_airbnb.cargar_mongo    | Importando reviews.csv.gz -> colección Reviews
+2026-10-10 20:39:09 | WARNING  | etl_airbnb.cargar_mongo    | La colección Reviews ya tiene datos; se omite (use --reemplazar).
+2026-10-10 20:39:09 | INFO     | etl_airbnb.cargar_mongo    | Importando calendar.csv.gz -> colección Calendar
+2026-10-10 20:39:09 | WARNING  | etl_airbnb.cargar_mongo    | La colección Calendar ya tiene datos; se omite (use --reemplazar).
+2026-10-10 20:39:12 | INFO     | etl_airbnb.cargar_mongo    | Índices creados. Colecciones disponibles: ['Calendar', 'Listings', 'Reviews']

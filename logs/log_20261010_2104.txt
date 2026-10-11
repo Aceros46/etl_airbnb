@@ -1,0 +1,75 @@
+2026-10-10 21:04:35 | INFO     | etl_airbnb                 | ======================================================================
+2026-10-10 21:04:35 | INFO     | etl_airbnb                 | Nueva ejecución del ETL. Archivo de log: log_20261010_2104.txt
+2026-10-10 21:04:35 | INFO     | etl_airbnb.main            | INICIO DEL PROCESO ETL - Airbnb Bogotá
+2026-10-10 21:04:35 | INFO     | etl_airbnb.main            | ---------- FASE 1: EXTRACCIÓN ----------
+2026-10-10 21:04:35 | INFO     | etl_airbnb.extraccion      | Conexión exitosa a MongoDB (mongodb://localhost:27017) - base de datos 'airbnb_bogota'
+2026-10-10 21:04:35 | INFO     | etl_airbnb.extraccion      | Colecciones encontradas: ['Calendar', 'Listings', 'Reviews']
+2026-10-10 21:04:37 | INFO     | etl_airbnb.extraccion      | Colección Listings  -> 19,187 registros y 78 columnas extraídos (1.3 s)
+2026-10-10 21:04:42 | INFO     | etl_airbnb.extraccion      | Colección Reviews   -> 527,731 registros y 6 columnas extraídos (5.6 s)
+2026-10-10 21:06:09 | INFO     | etl_airbnb.extraccion      | Colección Calendar  -> 7,003,255 registros y 5 columnas extraídos (86.2 s)
+2026-10-10 21:06:09 | INFO     | etl_airbnb.extraccion      | Extracción finalizada: 7,550,173 registros en total.
+2026-10-10 21:06:09 | INFO     | etl_airbnb.extraccion      | Conexión a MongoDB cerrada.
+2026-10-10 21:06:09 | INFO     | etl_airbnb.main            | ---------- FASE 2: TRANSFORMACIÓN ----------
+2026-10-10 21:06:11 | INFO     | etl_airbnb.transformacion  | Transformando LISTINGS (19,187 registros, 78 columnas)
+2026-10-10 21:06:12 | INFO     | etl_airbnb.transformacion  | [listings] Eliminar registros sin id: 19,187 -> 19,187 registros (0 eliminados)
+2026-10-10 21:06:12 | INFO     | etl_airbnb.transformacion  | [listings] Eliminar duplicados por id: 19,187 -> 19,187 registros (0 eliminados)
+2026-10-10 21:06:12 | WARNING  | etl_airbnb.transformacion  | [hosts] Desanidar host y eliminar duplicados por host_id: 19,187 -> 8,335 registros (10,852 eliminados)
+2026-10-10 21:06:12 | INFO     | etl_airbnb.transformacion  | [hosts] Tabla de anfitriones creada: 8,335 hosts únicos
+2026-10-10 21:06:12 | WARNING  | etl_airbnb.transformacion  | [listings] Columnas esperadas no encontradas (se omiten): ['instant_bookable']
+2026-10-10 21:06:12 | INFO     | etl_airbnb.transformacion  | [listings] Columnas conservadas: 37
+2026-10-10 21:06:12 | INFO     | etl_airbnb.transformacion  | [listings] Precio normalizado a numérico. Nulos en price: 195 (1.0 %)
+2026-10-10 21:06:13 | INFO     | etl_airbnb.transformacion  | [listings] Fechas convertidas a formato YYYY-MM-DD
+2026-10-10 21:06:13 | INFO     | etl_airbnb.transformacion  | [listings] bedrooms: 2959 nulos imputados con la mediana por room_type
+2026-10-10 21:06:13 | INFO     | etl_airbnb.transformacion  | [listings] beds: 291 nulos imputados con la mediana por room_type
+2026-10-10 21:06:13 | INFO     | etl_airbnb.transformacion  | [listings] bathrooms: 22 nulos imputados con la mediana por room_type
+2026-10-10 21:06:13 | INFO     | etl_airbnb.transformacion  | [listings] Eliminar registros sin coordenadas: 19,187 -> 19,187 registros (0 eliminados)
+2026-10-10 21:06:13 | WARNING  | etl_airbnb.transformacion  | [listings] 6 valores de maximum_nights recortados a 1125
+2026-10-10 21:06:13 | INFO     | etl_airbnb.transformacion  | [listings] Outliers de precio (IQR sobre log): fuera de [36300, 698014] COP -> 661 marcados
+2026-10-10 21:06:13 | INFO     | etl_airbnb.transformacion  | [listings] Distribución por categoría de precio: {'Moderado': 8598, 'Medio-alto': 4886, 'Económico': 4009, 'Alto': 1087, 'Lujo': 412, 'Sin precio': 195}
+2026-10-10 21:06:18 | INFO     | etl_airbnb.transformacion  | [listing_amenities] Amenities desanidadas: 505,595 filas, 3,588 amenities distintas
+2026-10-10 21:06:18 | INFO     | etl_airbnb.transformacion  | [listings] Resultado final: 19,187 filas x 52 columnas
+2026-10-10 21:06:18 | INFO     | etl_airbnb.transformacion  | Transformando CALENDAR (7,003,255 registros)
+2026-10-10 21:06:18 | INFO     | etl_airbnb.transformacion  | [calendar] Eliminar filas sin listing_id o fecha válida: 7,003,255 -> 7,003,255 registros (0 eliminados)
+2026-10-10 21:06:18 | INFO     | etl_airbnb.transformacion  | [calendar] Eliminar duplicados (listing_id, date): 7,003,255 -> 7,003,255 registros (0 eliminados)
+2026-10-10 21:06:19 | INFO     | etl_airbnb.transformacion  | [calendar] Integridad referencial con listings: 7,003,255 -> 7,003,255 registros (0 eliminados)
+2026-10-10 21:07:01 | WARNING  | etl_airbnb.transformacion  | [calendar] 100.0 % de los precios del calendario venían vacíos y se completaron con el precio del listing
+2026-10-10 21:07:04 | INFO     | etl_airbnb.transformacion  | [calendar_mensual] Calendario agrupado por mes: 249,431 filas
+2026-10-10 21:07:04 | INFO     | etl_airbnb.transformacion  | Transformando REVIEWS (527,731 registros)
+2026-10-10 21:07:04 | INFO     | etl_airbnb.transformacion  | [reviews] Eliminar filas sin id, listing_id o fecha: 527,731 -> 527,731 registros (0 eliminados)
+2026-10-10 21:07:04 | INFO     | etl_airbnb.transformacion  | [reviews] Eliminar duplicados por id: 527,731 -> 527,731 registros (0 eliminados)
+2026-10-10 21:07:04 | INFO     | etl_airbnb.transformacion  | [reviews] Integridad referencial con listings: 527,731 -> 527,731 registros (0 eliminados)
+2026-10-10 21:07:07 | WARNING  | etl_airbnb.transformacion  | [reviews] 1 reseñas sin comentario (se dejan como texto vacío)
+2026-10-10 21:07:14 | INFO     | etl_airbnb.transformacion  | [reviews_mensual] Reseñas agrupadas por mes: 182 filas
+2026-10-10 21:07:14 | INFO     | etl_airbnb.transformacion  | Transformación finalizada. Tablas generadas: {'hosts': 8335, 'listing_amenities': 505595, 'listings': 19187, 'calendar': 7003255, 'calendar_mensual': 249431, 'reviews': 527731, 'reviews_mensual': 182}
+2026-10-10 21:07:14 | INFO     | etl_airbnb.main            | ---------- FASE 3: CARGA ----------
+2026-10-10 21:07:14 | INFO     | etl_airbnb.carga           | Iniciando carga de 7 tablas
+2026-10-10 21:07:14 | INFO     | etl_airbnb.carga           | Conectado a SQLite: C:\Users\ACER\Downloads\etl_airbnb\output\airbnb_bogota.db
+2026-10-10 21:07:14 | INFO     | etl_airbnb.carga           | Tabla hosts              cargada en SQLite: 8,335 filas
+2026-10-10 21:07:15 | INFO     | etl_airbnb.carga           | Tabla listing_amenities  cargada en SQLite: 505,595 filas
+2026-10-10 21:07:17 | INFO     | etl_airbnb.carga           | Tabla listings           cargada en SQLite: 19,187 filas
+2026-10-10 21:07:43 | INFO     | etl_airbnb.carga           | Tabla calendar           cargada en SQLite: 7,003,255 filas
+2026-10-10 21:07:55 | INFO     | etl_airbnb.carga           | Tabla calendar_mensual   cargada en SQLite: 249,431 filas
+2026-10-10 21:07:59 | INFO     | etl_airbnb.carga           | Tabla reviews            cargada en SQLite: 527,731 filas
+2026-10-10 21:08:00 | INFO     | etl_airbnb.carga           | Tabla reviews_mensual    cargada en SQLite: 182 filas
+2026-10-10 21:08:00 | INFO     | etl_airbnb.carga           | Verificación SQLite OK  -> hosts              8,335 registros
+2026-10-10 21:08:00 | INFO     | etl_airbnb.carga           | Verificación SQLite OK  -> listing_amenities  505,595 registros
+2026-10-10 21:08:00 | INFO     | etl_airbnb.carga           | Verificación SQLite OK  -> listings           19,187 registros
+2026-10-10 21:08:00 | INFO     | etl_airbnb.carga           | Verificación SQLite OK  -> calendar           7,003,255 registros
+2026-10-10 21:08:00 | INFO     | etl_airbnb.carga           | Verificación SQLite OK  -> calendar_mensual   249,431 registros
+2026-10-10 21:08:00 | INFO     | etl_airbnb.carga           | Verificación SQLite OK  -> reviews            527,731 registros
+2026-10-10 21:08:00 | INFO     | etl_airbnb.carga           | Verificación SQLite OK  -> reviews_mensual    182 registros
+2026-10-10 21:08:02 | INFO     | etl_airbnb.carga           | Tabla hosts              exportada a hosts.xlsx (1 hoja/s)
+2026-10-10 21:08:24 | INFO     | etl_airbnb.carga           | Tabla listing_amenities  exportada a listing_amenities.xlsx (1 hoja/s)
+2026-10-10 21:08:48 | INFO     | etl_airbnb.carga           | Tabla listings           exportada a listings.xlsx (1 hoja/s)
+2026-10-10 21:08:48 | WARNING  | etl_airbnb.carga           | Tabla calendar excluida del XLSX por tamaño (7,003,255 filas); disponible en SQLite.
+2026-10-10 21:09:33 | INFO     | etl_airbnb.carga           | Tabla calendar_mensual   exportada a calendar_mensual.xlsx (1 hoja/s)
+2026-10-10 21:12:49 | INFO     | etl_airbnb.carga           | Tabla reviews            exportada a reviews.xlsx (1 hoja/s)
+2026-10-10 21:12:49 | INFO     | etl_airbnb.carga           | Tabla reviews_mensual    exportada a reviews_mensual.xlsx (1 hoja/s)
+2026-10-10 21:12:49 | INFO     | etl_airbnb.carga           | Verificación XLSX OK    -> hosts              8,335 registros
+2026-10-10 21:12:49 | INFO     | etl_airbnb.carga           | Verificación XLSX OK    -> listing_amenities  505,595 registros
+2026-10-10 21:12:49 | INFO     | etl_airbnb.carga           | Verificación XLSX OK    -> listings           19,187 registros
+2026-10-10 21:12:49 | INFO     | etl_airbnb.carga           | Verificación XLSX OK    -> calendar_mensual   249,431 registros
+2026-10-10 21:12:49 | INFO     | etl_airbnb.carga           | Verificación XLSX OK    -> reviews            527,731 registros
+2026-10-10 21:12:49 | INFO     | etl_airbnb.carga           | Verificación XLSX OK    -> reviews_mensual    182 registros
+2026-10-10 21:12:49 | INFO     | etl_airbnb.carga           | Carga finalizada correctamente: todos los conteos coinciden.
+2026-10-10 21:12:49 | INFO     | etl_airbnb.main            | FIN DEL PROCESO ETL en 493.5 segundos. Log: C:\Users\ACER\Downloads\etl_airbnb\logs\log_20261010_2104.txt

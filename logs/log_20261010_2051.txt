@@ -1,0 +1,7 @@
+2026-10-10 20:51:03 | INFO     | etl_airbnb                 | ======================================================================
+2026-10-10 20:51:03 | INFO     | etl_airbnb                 | Nueva ejecución del ETL. Archivo de log: log_20261010_2051.txt
+2026-10-10 20:51:03 | INFO     | etl_airbnb.extraccion      | Conexión exitosa a MongoDB (mongodb://localhost:27017) - base de datos 'airbnb_bogota'
+2026-10-10 20:51:03 | INFO     | etl_airbnb.extraccion      | Colecciones encontradas: ['Calendar', 'Listings', 'Reviews']
+2026-10-10 20:51:05 | INFO     | etl_airbnb.extraccion      | Colección Listings  -> 19,187 registros y 78 columnas extraídos (2.1 s)
+2026-10-10 20:51:12 | INFO     | etl_airbnb.extraccion      | Colección Reviews   -> 527,731 registros y 6 columnas extraídos (6.9 s)
+2026-10-10 20:51:21 | INFO     | etl_airbnb.extraccion      | Colección Calendar  -> 1,000,000 registros y 5 columnas extraídos (8.9 s)

@@ -1,0 +1,15 @@
+# Entorno virtual y caché
+venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Datos fuente (pesados) y salidas generadas
+data/raw/*.gz
+data/raw/*.csv
+output/*.db
+output/xlsx/
+
+# Mantener carpetas vacías
+!*/.gitkeep
